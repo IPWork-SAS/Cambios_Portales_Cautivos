@@ -68,13 +68,27 @@
         }
 
         public function validateExistVoucher($num_voucher = '', $id_campania = '') {
-            $sql = "SELECT * FROM :table WHERE voucher = '$num_voucher' AND id_campania = '$id_campania'";
-            $voucher = $this::sql($sql, Orm::FETCH_ONE); 
-            if(isset($voucher)) {
-                return true;
+            $voucher = $this::retrieveByvoucher($num_voucher, Orm::FETCH_ONE);
+
+            if($voucher->id_caducidad == 4){
+                $sql = "SELECT * FROM :table WHERE (voucher = '$num_voucher' AND estado = 'Disponible') AND id_campania = '$id_campania'";
+                $password = $this::sql($sql, Orm::FETCH_ONE); 
+                if(isset($password)) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
             }
-            else {
-                return false;
+            else{
+                $sql = "SELECT * FROM :table WHERE voucher = '$num_voucher' AND id_campania = '$id_campania'";
+                $voucher = $this::sql($sql, Orm::FETCH_ONE); 
+                if(isset($voucher)) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
             }
         }
 
@@ -93,10 +107,7 @@
 
         public function UpdateVoucherState($num_voucher = '', $campania) {
             $voucher = $this::retrieveByvoucher($num_voucher, Orm::FETCH_ONE);
-            if($voucher->id_caducidad == 4){
-                $voucher->estado = 'En Uso';
-                $voucher->save();
-            }else{
+            if($voucher->id_caducidad != 4){
                 if($voucher->num_usos == $voucher->total_num_usos){
                     $voucher->num_usos = $voucher->total_num_usos;
                 }

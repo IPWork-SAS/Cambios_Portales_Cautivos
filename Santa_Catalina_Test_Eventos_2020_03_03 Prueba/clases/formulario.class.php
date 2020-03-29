@@ -244,7 +244,7 @@
                 $this->dataFormulario['errorVoucher'] = true;
                 $this->dataFormulario['errorFormulario'] = true;
             } else {
-                if ( !$voucher->validateExistVoucher($num_voucher, $campania->GetIdCampania())) {
+                if (!$voucher->validateExistVoucher($num_voucher, $campania->GetIdCampania())) {
                     $this->dataFormulario['errorMSGVoucher'] =  'error_voucher_existencia';
                     $this->dataFormulario['errorVoucher'] = true;
                     $this->dataFormulario['errorFormulario'] = true;
