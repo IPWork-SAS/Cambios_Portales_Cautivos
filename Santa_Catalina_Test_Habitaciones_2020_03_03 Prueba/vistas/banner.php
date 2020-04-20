@@ -158,7 +158,7 @@
                     
                     <?php 
                         echo '
-                            <form class="field-btn-conectar "'.$conexion->form_connection.'
+                            <form class="field-btn-conectar "'.$conexion->BuildFormConnection().'
                                 <button class="btn btn-conectar" id="btnBanner" type="submit">Estableciendo conexión a internet en 5</button>
                             </form>
                         ';

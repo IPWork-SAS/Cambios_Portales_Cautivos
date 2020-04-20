@@ -12,7 +12,7 @@
 
         public function GetSRCBannerList($id_campania = '') {
             $arraySRCBanner = array();
-            $sql = "SELECT * FROM :table WHERE id_campania = '$id_campania'";
+            $sql = "SELECT * FROM :table WHERE id_campania = '$id_campania' order by rand()";
             $filesBannerWeb = $this::sql($sql, Orm::FETCH_MANY);
             /*
             foreach ($filesBannerWeb as $key => $value) {

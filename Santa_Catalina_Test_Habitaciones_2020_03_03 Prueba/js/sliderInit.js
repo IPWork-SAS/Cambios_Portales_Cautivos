@@ -9,7 +9,7 @@ $(document).ready(function(){
         clearTimeout(myModal.data('hideInterval'));
         myModal.data('hideInterval', setTimeout(function(){
             myModal.modal('hide');
-        }, 10000));
+        }, 5000));
   });
 		
 });

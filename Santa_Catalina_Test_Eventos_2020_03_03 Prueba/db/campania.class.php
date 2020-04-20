@@ -143,8 +143,18 @@
 
         /*Valida si el usuario se ha registrado*/
         public function ValidateExistClientByMac($mac = '') {
-            $user = $this::retrieveBymac_cliente($mac, Orm::FETCH_ONE);        
-            if(isset($user)) {
+            // $user = $this::retrieveBymac_cliente($mac, Orm::FETCH_ONE);        
+            // if(isset($user)) {
+            //     return true;
+            // } else  {
+            //     return false;
+            // } 
+            $user = $this::retrieveBymac_cliente($mac, Orm::FETCH_ONE);
+            $id_campania = BD_PARAMETERS['database']['id_campania'];
+            $validMonth =  $this::sql("SELECT DATE_SUB(a.fecha_creacion, INTERVAL -30 DAY) AS FechaLimite FROM :table a WHERE a.mac_cliente = '$user->mac_cliente' and a.id_evento = '$id_campania'", Orm::FETCH_ONE);
+            $utilidades = new Utilidades();
+            $fecha_hoy = $utilidades->getDatetimeNow(); 
+            if(isset($user) && $fecha_hoy <= $validMonth->FechaLimite) {
                 return true;
             } else  {
                 return false;
